@@ -18,31 +18,31 @@ public class CSV {
 	public static void createTable(String tableName, String tableColumns)
 			throws FileNotFoundException {
 		
-		tableColumnsConst = tableColumns;
-		columns = tableColumns.split(", ");
-		rowsCount = columns.length;
-		pw = new PrintWriter(new File(tableName + ".csv"));
+		tableColumnsConst = tableColumns;//get table name
+		columns = tableColumns.split(", ");//get coloumns 
+		rowsCount = columns.length;//get count of rows
+		pw = new PrintWriter(new File(tableName + ".csv"));//open a new witer
 		sb = new StringBuilder();
 		for (int i = 0; i < rowsCount; i++) {
-			sb.append(columns[i]);sb.append(',');
+			sb.append(columns[i]);sb.append(',');//add rows in the tbale head
 		}
 		sb.append('\n');
 	}
 
 	public static void insertRecord(String row) throws FileNotFoundException {
 		
-		checkIfReachedMaxRecords();
-//TODO Check if record is same as number of fields
-		String[] recordColumns = row.split(", ");
+		checkIfReachedMaxRecords();//check if reached max record to create a new page
+		//TODO Check if record is same as number of fields
+		String[] recordColumns = row.split(", ");//get coulumns to be added
 		int rowLengh = recordColumns.length;
 		sb.append(id);sb.append(',');
-		if (rowLengh + 1 <= rowsCount) {
+		if (rowLengh + 1 <= rowsCount) {//TODO take this check out in can add
 			for (int i = 0; i < rowLengh; i++) {
-				sb.append(recordColumns[i]);sb.append(',');
+				sb.append(recordColumns[i]);sb.append(',');//add record
 			}
 			sb.append('\n');
-			id++;
-			pageRecords++;
+			id++;//incriment id of records
+			pageRecords++;//increment page records counter
 		}
 	}
 
