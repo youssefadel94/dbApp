@@ -32,7 +32,7 @@ public class CSV {
 	public static void insertRecord(String row) throws FileNotFoundException {
 		
 		checkIfReachedMaxRecords();
-
+//TODO Check if record is same as number of fields
 		String[] recordColumns = row.split(", ");
 		int rowLengh = recordColumns.length;
 		sb.append(id);sb.append(',');
@@ -46,6 +46,24 @@ public class CSV {
 		}
 	}
 
+	public static String readFromCSV(){
+		//TODO Function read all csv files and generate a sting  
+		return tableColumnsConst;
+		
+	}
+	//TODO brin library 
+	public static void update(int id, String record){
+		String records = readFromCSV();//see if lookup is by id or name
+		//TODO Check if record exist then update it in the string and add it to the csv
+	}
+	public static void canAdd(String record){
+		//TODO Check if record can be add and dosnt excede field numbers 
+	}
+	public static void delete(int id){
+		String records = readFromCSV();//see if lookup is by id or name
+		//TODO Check if record exist then update it in the string and add it to the csv
+	}
+	
 	private static void checkIfReachedMaxRecords() throws FileNotFoundException {
 		int limit = 2;//limit per page
 		if (pageRecords == limit) {
@@ -68,19 +86,6 @@ public class CSV {
 		insertRecord("test name, ");
 		insertRecord("test name, ");
 		writeToCSV();
-	/*	PrintWriter pw = new PrintWriter(new File("test.csv"));
-		StringBuilder sb = new StringBuilder();
-		sb.append("id");
-		sb.append(',');
-		sb.append("Name");
-		sb.append('\n');
-		sb.append("1");
-		sb.append(',');
-		sb.append("Prashant Ghimire");
-		sb.append('\n');
-		pw.write(sb.toString());
-		pw.close();
-		System.out.println("done!");*/
 
 	}
 
