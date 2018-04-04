@@ -27,7 +27,7 @@ public class CSV {
 			sb.append(columns[i]);sb.append(',');//add rows in the tbale head
 		}
 		sb.append('\n');
-	}
+	}//test
 
 	public static void insertRecord(String row) throws FileNotFoundException {
 		
