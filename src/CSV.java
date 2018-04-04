@@ -12,6 +12,7 @@ public class CSV {
 	public static int id;
 	public static int pages;
 	public static int pageRecords;
+	public static int rowLengh;
 
 
 
@@ -33,18 +34,20 @@ public class CSV {
 		
 		checkIfReachedMaxRecords();//check if reached max record to create a new page
 		//TODO Check if record is same as number of fields
-		String[] recordColumns = row.split(", ");//get coulumns to be added
+		String[] recordColumns = row.split(", ");//get columns to be added
 		int rowLengh = recordColumns.length;
 		sb.append(id);sb.append(',');
-		if (rowLengh + 1 <= rowsCount) {//TODO take this check out in can add
-			for (int i = 0; i < rowLengh; i++) {
+		//if (rowLengh + 1 <= rowsCount) {//TODO take this check out in can add
+			if(canAdd(row))
+				System.out.print("hey");
+		      for (int i = 0; i < rowLengh; i++) {
 				sb.append(recordColumns[i]);sb.append(',');//add record
 			}
 			sb.append('\n');
-			id++;//incriment id of records
+			id++;//increment id of records
 			pageRecords++;//increment page records counter
 		}
-	}
+	
 
 	public static String readFromCSV(){
 		//TODO Function read all csv files and generate a sting  
@@ -56,8 +59,18 @@ public class CSV {
 		String records = readFromCSV();//see if lookup is by id or name
 		//TODO Check if record exist then update it in the string and add it to the csv
 	}
-	public static void canAdd(String record){
-		//TODO Check if record can be add and dosnt excede field numbers 
+	public static boolean canAdd(String row){
+		boolean f= false;
+		//TODO Check if record can be add and dosn't exceed field numbers
+		String[] recordColumns = row.split(",");//get columns to be added
+		rowLengh = recordColumns.length;
+		if (rowLengh <= rowsCount) {//TODO take this check out in can add
+			f=true;
+		}
+		else{
+			System.out.print("cant add a row");
+		}
+		return f; 
 	}
 	public static void delete(int id){
 		String records = readFromCSV();//see if lookup is by id or name
@@ -85,6 +98,9 @@ public class CSV {
 		insertRecord("test name, ");
 		insertRecord("test name, ");
 		insertRecord("test name, ");
+		insertRecord("test kl, ");
+		insertRecord("test ll, ");
+		insertRecord("test ll,3,hh, ff, h");
 		writeToCSV();
 
 	}
