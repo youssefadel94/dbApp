@@ -49,7 +49,7 @@ public class CSV {
 	public static String readFromCSV(){
 		//TODO Function read all csv files and generate a sting  
 		return tableColumnsConst;
-		
+		//TODO brin index load and save for searching
 	}
 	//TODO brin library 
 	public static void update(int id, String record){
