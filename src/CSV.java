@@ -56,8 +56,12 @@ public class CSV {
 		//TODO brin index load and save for searching
 	}
 	//TODO brin library 
-	public static Boolean update(int id, String record) throws FileNotFoundException{
+	public static Boolean update(int id, String record)throws FileNotFoundException {
 		String records[] = readFromCSV(); //see if lookup is by id or name
+		
+		if ( ! canAdd(record)) {
+			return false; 
+		}
 		for (int i = 2; i <= records.length; i ++ ) {//check for condition
 			if (records[i].contains(Integer.toString(id))) {
 				records[i] = record; 
