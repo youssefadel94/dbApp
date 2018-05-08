@@ -14,6 +14,8 @@ public class CSV {
 	public static int pageRecords; 
 	public static int rowLengh; 
 	public static String[] tableColumnsCSV; 
+	public static Boolean deleteFlag; 
+	public static Boolean updateFlag;
 
 
 
@@ -62,69 +64,88 @@ public class CSV {
 		if ( ! canAdd(record)) {
 			return false; 
 		}
-		for (int i = 2; i <= records.length; i ++ ) {//check for condition
+		for (int i = 2; i < records.length; i ++ ) {//check for condition
 			if (records[i].contains(Integer.toString(id))) {
 				records[i] = record; 
+				
+				updateFlag = false; 
+			}
+
+		}
+				if (updateFlag) {
 				createCSV(records); 
 				return true; 
 			}
-		}return false; 
+			return false; 
 		//TODO Check if record exist then update it in the string and add it to the csv
 	}
 	public static boolean canAdd(String row) {
 		boolean f = false; 
-		//TODO Check if record can be add and dosn't exceed field numbers
-		String[] recordColumns = row.split(",");//get columns to be added
-		rowLengh = recordColumns.length;
+		String[] recordColumns = row.split(","); //get columns to be added
+		rowLengh = recordColumns.length; 
 		if (rowLengh <= rowsCount) {//TODO take this check out in can add
-			f=true;
+			f = true; 
 		}
-		else{
-			System.out.print("cant add a row");
+		else {
+			System.out.print("cant add a row"); 
 		}
 		return f; 
 	}
-	public static void delete(int id){
-		String[] records = readFromCSV();//see if lookup is by id or name
-		//TODO Check if record exist then update it in the string and add it to the csv
+	public static void delete(int id)throws FileNotFoundException {
+		String records[] = readFromCSV(); // see if lookup is by id or name
+
+		for (int i = 2; i <= records.length; i ++ ) {// check for condition
+			if (records[i].contains(Integer.toString(id))) {
+				deleteFlag = true; 
+			}else {
+				deleteFlag = false; 
+			}
+			if (i + 1 < records.length && deleteFlag) {
+				records[i] = records[i + 1]; 
+			}
+		}
+		if (deleteFlag) {
+		createCSV(records); 
+		}
+
 	}
 	
-	private static void checkIfReachedMaxRecords() throws FileNotFoundException {
-		int limit = 2;//limit per page
+	private static void checkIfReachedMaxRecords()throws FileNotFoundException {
+		int limit = 2; //limit per page
 		if (pageRecords == limit) {
-			pw.write(sb.toString());
-			pw.close();
-			createTable(tableNameConst + " " + pages, tableColumnsConst);
-			pages++;
-			pageRecords = 0;
+			pw.write(sb.toString()); 
+			pw.close(); 
+			createTable(tableNameConst + " " + pages, tableColumnsConst); 
+			pages ++ ; 
+			pageRecords = 0; 
 		}
 	}
-public static void createCSV(String[] records) throws FileNotFoundException{
-	createTable(records[0], records[1]);
-	for(int i =2;i<=records.length;i++){
-		insertRecord(records[i]);
+public static void createCSV(String[] records)throws FileNotFoundException {
+	createTable(records[0], records[1]); 
+	for (int i = 2; i <= records.length; i ++ ) {
+		insertRecord(records[i]); 
 	}
 }
-	public static void main(String[] args) throws FileNotFoundException {
-		id = 0;
-		pages = 1;
-		tableNameConst = "test";
-		createTable(tableNameConst, "id, name, number, blabla");
-		insertRecord("test name, ");
-		insertRecord("test name, ");
-		insertRecord("test name, ");
-		insertRecord("test name, ");
-		insertRecord("test name, ");
-		insertRecord("test kl, ");
-		insertRecord("test ll, ");
-		insertRecord("test ll,3,hh, ff, h");
-		writeToCSV();
+	public static void main(String[] args)throws FileNotFoundException {
+		id = 0; 
+		pages = 1; 
+		tableNameConst = "test"; 
+		createTable(tableNameConst, "id, name, number, blabla"); 
+		insertRecord("test name, "); 
+		insertRecord("test name, "); 
+		insertRecord("test name, "); 
+		insertRecord("test name, "); 
+		insertRecord("test name, "); 
+		insertRecord("test kl, "); 
+		insertRecord("test ll, "); 
+		insertRecord("test ll,3,hh, ff, h"); 
+		writeToCSV(); 
 
 	}
 
 	private static void writeToCSV() {
-		pw.write(sb.toString());
-		pw.close();
-		System.out.println("done!");
+		pw.write(sb.toString()); 
+		pw.close(); 
+		System.out.println("done!"); 
 	}
 }
