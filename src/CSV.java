@@ -125,6 +125,7 @@ public static void createCSV(String[] records)throws FileNotFoundException {
 	for (int i = 2; i <= records.length; i ++ ) {
 		insertRecord(records[i]); 
 	}
+		writeToCSV();
 }
 	public static void main(String[] args)throws FileNotFoundException {
 		id = 0; 
