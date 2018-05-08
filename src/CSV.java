@@ -52,10 +52,19 @@ public class CSV {
 		}
 	
 
-	public static String[] readFromCSV() {
-		//TODO Function read all csv files and generate a sting  
-		return tableColumnsCSV; 
-		//TODO brin index load and save for searching
+	public static String readFromCSV(String path) throws IOException {
+
+		String currentLine = "";
+		FileReader fileReader = new FileReader(path);
+		BufferedReader br = new BufferedReader(fileReader);
+		while ((currentLine = br.readLine()) != null) {
+			System.out.println(currentLine);
+			// Parsing the currentLine String
+		}
+		System.out.println(tableColumnsConst);
+		return tableColumnsConst;
+
+		// TODO brin index load and save for searching
 	}
 	//TODO brin library 
 	public static Boolean update(int id, String record)throws FileNotFoundException {
